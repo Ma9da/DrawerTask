@@ -1,19 +1,15 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
-
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Pressable, Image } from "react-native";
 import { Colors } from "@/constants/Colors";
 import ProfileInfo from "@/components/ProfileInfo";
 import {
@@ -39,26 +35,37 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
+  const handleSettings = () => {
+    // Add your settings logic here
+    console.log("Settings pressed");
+  };
   const handleLogout = () => {
     // Add your logout logic here
     console.log("Logout pressed");
   };
 
-  const handleSettings = () => {
-    // Add your settings logic here
-    console.log("Settings pressed");
-  };
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer
-        screenOptions={{ drawerStyle: styles.drawer }}
+        screenOptions={({ navigation }) => ({
+          drawerStyle: styles.drawer,
+          headerTitleStyle: styles.pageTitle,
+          headerTitleContainerStyle: styles.pageTitleContainer,
+          headerTitleAlign:"center",
+          headerLeft: () => (
+            <Pressable onPress={() => navigation.toggleDrawer()}>
+              <Image
+                source={require("../assets/images/drawerIcon.png")}
+                style={{ width: 18, height: 18, resizeMode: "contain", marginLeft: 16 }}
+              />
+            </Pressable>
+          ),
+        })}
         drawerContent={(props) => (
           <DrawerContentScrollView {...props}>
             {/* Profile Info Section */}
             <ProfileInfo />
             <DrawerItemList {...props} />
-            <View style={styles.spacer} />
             <DrawerItem
               label="العربية"
               labelStyle={styles.label}
@@ -218,7 +225,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginHorizontal: 0,
   },
-  spacer: {
-    height: 10, // Optional: adds a small space before the custom items
+  pageTitle:{
+    color: Colors.dark.darkGray,
+    textAlign: 'center',
+    fontFamily: 'Roboto',
+    fontSize: 16,
+    fontStyle: 'normal',
+    fontWeight: '600',
   },
+  pageTitleContainer:{
+    display: 'flex',
+    justifyContent: 'center',
+    flex:1,
+  }
 });
