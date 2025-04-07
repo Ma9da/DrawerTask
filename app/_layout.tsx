@@ -1,11 +1,10 @@
-
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { useNavigation } from '@react-navigation/native';
+import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { useNavigation } from "@react-navigation/native";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
@@ -17,6 +16,7 @@ import {
   DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
+import i18n from "@/i18n/i18n";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -51,12 +51,17 @@ export default function RootLayout() {
           drawerStyle: styles.drawer,
           headerTitleStyle: styles.pageTitle,
           headerTitleContainerStyle: styles.pageTitleContainer,
-          headerTitleAlign:"center",
+          headerTitleAlign: "center",
           headerLeft: () => (
             <Pressable onPress={() => navigation.toggleDrawer()}>
               <Image
                 source={require("../assets/images/drawerIcon.png")}
-                style={{ width: 18, height: 18, resizeMode: "contain", marginLeft: 16 }}
+                style={{
+                  width: 18,
+                  height: 18,
+                  resizeMode: "contain",
+                  marginLeft: 16,
+                }}
               />
             </Pressable>
           ),
@@ -67,13 +72,18 @@ export default function RootLayout() {
             <ProfileInfo />
             <DrawerItemList {...props} />
             <DrawerItem
-              label="العربية"
+              label={i18n.locale.includes("en") ? "العربية" : "English"}
               labelStyle={styles.label}
               style={styles.drawerItem}
-              onPress={handleSettings}
+              onPress={() => {
+                // Toggle language
+                const newLocale = i18n.locale.includes("en") ? "ar" : "en";
+                i18n.locale = newLocale;
+                // You might need to trigger a re-render or update state
+              }}
             />
             <DrawerItem
-              label="Logout"
+              label={i18n.t("logout")}
               labelStyle={styles.label}
               style={styles.drawerItem}
               onPress={handleLogout}
@@ -84,111 +94,111 @@ export default function RootLayout() {
         <Drawer.Screen
           name="Shop"
           options={{
-            title: "Shop",
+            title: i18n.t("shop"),
             drawerLabelStyle: styles.label,
             drawerItemStyle: styles.drawerItem,
             drawerContentContainerStyle: styles.drawerItemContainer,
-            drawerLabel: "Shop",
+            drawerLabel: i18n.t("shop"),
           }}
         />
         <Drawer.Screen
           name="Categories"
           options={{
-            title: "Categories",
+            title: i18n.t("categories"),
             drawerLabelStyle: styles.label,
             drawerItemStyle: styles.drawerItem,
             drawerContentContainerStyle: styles.drawerItemContainer,
-            drawerLabel: "Categories",
+            drawerLabel: i18n.t("categories"),
           }}
         />
         <Drawer.Screen
           name="Favorites"
           options={{
-            title: "Favorites",
+            title: i18n.t("favorites"),
             drawerLabelStyle: styles.label,
             drawerItemStyle: styles.drawerItem,
             drawerContentContainerStyle: styles.drawerItemContainer,
-            drawerLabel: "Favorites",
+            drawerLabel: i18n.t("favorites"),
           }}
         />
         <Drawer.Screen
           name="MyBasket"
           options={{
-            title: "My Basket",
+            title: i18n.t("myBasket"),
             drawerLabelStyle: styles.label,
             drawerItemStyle: styles.drawerItem,
             drawerContentContainerStyle: styles.drawerItemContainer,
-            drawerLabel: "My Basket",
+            drawerLabel: i18n.t("myBasket"),
           }}
         />
         <Drawer.Screen
           name="ViewOrder"
           options={{
-            title: "View Order",
+            title: i18n.t("viewOrder"),
             drawerLabelStyle: styles.label,
             drawerItemStyle: styles.drawerItem,
             drawerContentContainerStyle: styles.drawerItemContainer,
-            drawerLabel: "View Order",
+            drawerLabel: i18n.t("viewOrder"),
           }}
         />
         <Drawer.Screen
           name="Wallet"
           options={{
-            title: "Wallet",
+            title: i18n.t("wallet"),
             drawerLabelStyle: styles.label,
             drawerItemStyle: styles.drawerItem,
             drawerContentContainerStyle: styles.drawerItemContainer,
-            drawerLabel: "Wallet",
+            drawerLabel: i18n.t("wallet"),
           }}
         />
         <Drawer.Screen
           name="LoyaltyPoints"
           options={{
-            title: "Loyalty Points",
+            title: i18n.t("loyaltyPoints"),
             drawerLabelStyle: styles.label,
             drawerItemStyle: styles.drawerItem,
             drawerContentContainerStyle: styles.drawerItemContainer,
-            drawerLabel: "Loyalty Points",
+            drawerLabel: i18n.t("loyaltyPoints"),
           }}
         />
         <Drawer.Screen
           name="Referral"
           options={{
-            title: "Referral",
+            title: i18n.t("referral"),
             drawerLabelStyle: styles.label,
             drawerItemStyle: styles.drawerItem,
             drawerContentContainerStyle: styles.drawerItemContainer,
-            drawerLabel: "Referral",
+            drawerLabel: i18n.t("referral"),
           }}
         />
         <Drawer.Screen
           name="TermsAndConditions"
           options={{
-            title: "Terms & Conditions",
+            title: i18n.t("termsAndConditions"),
             drawerLabelStyle: styles.label,
             drawerItemStyle: styles.drawerItem,
             drawerContentContainerStyle: styles.drawerItemContainer,
-            drawerLabel: "Terms & Conditions",
+            drawerLabel: i18n.t("termsAndConditions"),
           }}
         />
         <Drawer.Screen
           name="ContactUs"
           options={{
-            title: "Contact Us",
+            title: i18n.t("contactUs"),
             drawerLabelStyle: styles.label,
             drawerItemStyle: styles.drawerItem,
             drawerContentContainerStyle: styles.drawerItemContainer,
-            drawerLabel: "Contact Us",
+            drawerLabel: i18n.t("contactUs"),
           }}
         />
         <Drawer.Screen
           name="DeleteAccount"
           options={{
-            title: "Delete Account",
+            title: i18n.t("deleteAccount"),
             drawerLabelStyle: styles.label,
             drawerItemStyle: styles.drawerItem,
             drawerContentContainerStyle: styles.drawerItemContainer,
-            drawerLabel: "Delete Account",
+            drawerLabel: i18n.t("deleteAccount"),
           }}
         />
       </Drawer>
@@ -225,17 +235,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginHorizontal: 0,
   },
-  pageTitle:{
+  pageTitle: {
     color: Colors.dark.darkGray,
-    textAlign: 'center',
-    fontFamily: 'Roboto',
+    textAlign: "center",
+    fontFamily: "Roboto",
     fontSize: 16,
-    fontStyle: 'normal',
-    fontWeight: '600',
+    fontStyle: "normal",
+    fontWeight: "600",
   },
-  pageTitleContainer:{
-    display: 'flex',
-    justifyContent: 'center',
-    flex:1,
-  }
+  pageTitleContainer: {
+    display: "flex",
+    justifyContent: "center",
+    flex: 1,
+  },
 });

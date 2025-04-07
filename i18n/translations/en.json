@@ -1,0 +1,16 @@
+{
+"shop": "Shop",
+"categories": "Categories",
+"favorites": "Favorites",
+"myBasket": "My Basket",
+"viewOrder": "View Order",
+"wallet": "Wallet",
+"loyaltyPoints": "Loyalty Points",
+"referral": "Referral",
+"termsAndConditions": "Terms & Conditions",
+"contactUs": "Contact Us",
+"deleteAccount": "Delete Account",
+"logout": "Logout",
+"arabic": "Arabic",
+"english": "English"
+}
